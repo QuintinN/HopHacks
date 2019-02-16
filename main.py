@@ -31,6 +31,11 @@ def delete_all(ID):
     conn.commit()
     conn.close()
 
+@app.route("/web",methods=['GET','POST'])
+def web_reply():
+    new_message = send_message(str(request.remote_addr),request.values.get("Body", None))
+    return new_message
+
 @app.route("/sms", methods = ['GET', 'POST'])
 def sms_reply():
     new_message = send_message(str(request.remote_addr),request.values.get("Body", None))
