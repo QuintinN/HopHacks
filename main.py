@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import render_template
+from flask import request
 import sqlite3
 from datetime import datetime
 from twilio.twiml.messaging_response import MessagingResponse
@@ -16,7 +17,7 @@ def send_message(ID,last_message):
     conn.commit()
     conn.close()
 
-    return "Jack"
+    return str(ID)+ " "+str(last_message)
 
 @app.route('/')
 def index():
@@ -32,8 +33,9 @@ def delete_all(ID):
 
 @app.route("/sms", methods = ['GET', 'POST'])
 def sms_reply():
+    new_message = send_message(str(request.remote_addr),request.values.get("Body", None))
     resp = MessagingResponse()
-    resp.message("The Robots are coming! Head for the hills!")
+    resp.message(new_message)
     return str(resp)
 
 def select_all(ID):
