@@ -17,7 +17,7 @@ def send_message(ID,last_message):
     conn.commit()
     conn.close()
 
-    return "Jack"
+    return str(ID)+ " "+str(last_message)
 
 @app.route('/')
 def index():
@@ -33,9 +33,9 @@ def delete_all(ID):
 
 @app.route("/sms", methods = ['GET', 'POST'])
 def sms_reply():
-    message = request.values.get("Body", None)
+    new_message = send_message(str(request.remote_addr),request.values.get("Body", None))
     resp = MessagingResponse()
-    resp.message(message)
+    resp.message(new_message)
     return str(resp)
 
 def select_all(ID):
