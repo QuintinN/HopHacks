@@ -1,1 +1,1 @@
-"# HopHacks" 
+# HopHacks 
