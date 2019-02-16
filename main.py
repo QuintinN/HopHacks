@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import render_template
+from flask import request
 import sqlite3
 from datetime import datetime
 from twilio.twiml.messaging_response import MessagingResponse
@@ -32,8 +33,9 @@ def delete_all(ID):
 
 @app.route("/sms", methods = ['GET', 'POST'])
 def sms_reply():
+    message = request.values.get("Body", None)
     resp = MessagingResponse()
-    resp.message("The Robots are coming! Head for the hills!")
+    resp.message(message)
     return str(resp)
 
 def select_all(ID):
