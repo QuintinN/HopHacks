@@ -17,7 +17,7 @@ train_percentage = 0.75
 train = data[:round(train_percentage*len(data))]
 test = data[len(train):]
 
-cl = NaiveBayesClassifier(train)
+c1 = NaiveBayesClassifier(train)
 print(c1.accuracy(test))
 
 
